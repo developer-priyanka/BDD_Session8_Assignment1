@@ -1,0 +1,5 @@
+lines = LOAD'/test_data' using PigStorage(',') as (f1:chararray);
+words = foreach lines generate flatten(TOKENIZE(f1)) as word ;
+groupwords = group words by word;
+countwords = foreach groupwords generate group,COUNT(words);
+dump countwords;
